@@ -1,0 +1,14 @@
+langchain
+langchain-core
+langchain-community
+langchain-text-splitters
+langchain-ollama
+langchain-groq
+langserve[all]
+langsmith
+fastapi
+uvicorn
+faiss-cpu
+fastembed
+pypdf
+python-dotenv
