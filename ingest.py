@@ -1,7 +1,3 @@
-"""Build the FAISS index from files in ./data (PDF and .txt/.md).
-
-Run:  python ingest.py
-"""
 from pathlib import Path
 
 from langchain_community.document_loaders import PyPDFLoader, TextLoader

@@ -12,9 +12,11 @@ DATA_DIR = os.getenv("DATA_DIR", "data")
 def _build_chat_model(groq_model: str | None = None):
     if PROVIDER == "groq":
         from langchain_groq import ChatGroq
+        print(f"Using Groq model: {groq_model or os.getenv('GROQ_MODEL', 'openai/gpt-oss-120b')}")
         return ChatGroq(model=groq_model or os.getenv("GROQ_MODEL", "openai/gpt-oss-120b"),
                         temperature=0)
     from langchain_ollama import ChatOllama
+    print(f"Using Ollama model: {os.getenv('OLLAMA_MODEL', 'llama3.2')}")
     return ChatOllama(model=os.getenv("OLLAMA_MODEL", "llama3.2"), temperature=0)
 
 
@@ -34,6 +36,7 @@ def get_llm(schema=None):
         return primary
 
     backup = _build_chat_model(os.getenv("GROQ_FALLBACK_MODEL", "openai/gpt-oss-20b"))
+    print(f"Using Groq fallback model: {os.getenv('GROQ_FALLBACK_MODEL', 'openai/gpt-oss-20b')}")
     if schema is not None:
         backup = backup.with_structured_output(schema)
     return primary.with_fallbacks([backup])
